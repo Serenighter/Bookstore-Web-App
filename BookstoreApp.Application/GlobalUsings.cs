@@ -1,0 +1,9 @@
+﻿global using BookstoreApp.Core.Entities;
+global using BookstoreApp.Core.Repositories;
+global using BookstoreApp.Application.DTOs.Books;
+global using BookstoreApp.Application.DTOs.Categories;
+global using BookstoreApp.Application.DTOs.Clients;
+global using BookstoreApp.Application.DTOs.Editions;
+global using BookstoreApp.Application.DTOs.Languages;
+global using BookstoreApp.Application.DTOs.Publishers;
+global using AutoMapper;
