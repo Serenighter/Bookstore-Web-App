@@ -17,7 +17,7 @@ public class BookService : IBookService
 
     public async Task AddAsync(AddBookDto model)
     {
-        var newBookDb = new BookDb(model.Title, model.Author, model.CategoryId, model.PublisherId, model.EditionId, model.LanguageId, model.ClientId);
+        var newBookDb = new BookDb(model.Title,/* model.Author,*/ model.CategoryId, model.PublisherId, model.EditionId, model.LanguageId, model.ClientId);
 
         await _bookRepository.AddAsync(newBookDb);
     }

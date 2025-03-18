@@ -1,9 +1,4 @@
-﻿using BookstoreApp.Application.DTOs.Categories;
-using BookstoreApp.Application.DTOs.Clients;
-using BookstoreApp.Application.DTOs.Editions;
-using BookstoreApp.Application.DTOs.Languages;
-using BookstoreApp.Application.DTOs.Publishers;
-
+﻿
 namespace BookstoreApp.Application.DTOs.Books;
 
 public class BookDto

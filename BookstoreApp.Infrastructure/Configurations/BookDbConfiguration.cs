@@ -12,5 +12,8 @@ public class BookDbConfiguration : IEntityTypeConfiguration<BookDb>
         builder.HasOne(x => x.Category)
             .WithMany(x => x.Books)
             .HasForeignKey(x => x.CategoryId);
+        builder.HasMany(x => x.AuthorBooks)
+            .WithOne(x => x.Book)
+            .HasForeignKey(x => x.BookId);
     }
 }

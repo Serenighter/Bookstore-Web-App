@@ -11,5 +11,9 @@ public class AutoMapperProfile : Profile
         CreateMap<PublisherDb, PublisherDto>();
         CreateMap<LanguageDb, LanguageDto>();
         CreateMap<EditionDb, EditionDto>();
+        CreateMap<AuthorDb, AuthorDto>();
+        CreateMap<AuthorBookDb, AuthorBookDto>()
+            .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author))
+            .ForMember(dest => dest.Book, opt => opt.MapFrom(src => src.Book));
     }
 }

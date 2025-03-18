@@ -6,4 +6,6 @@ global using BookstoreApp.Application.DTOs.Clients;
 global using BookstoreApp.Application.DTOs.Editions;
 global using BookstoreApp.Application.DTOs.Languages;
 global using BookstoreApp.Application.DTOs.Publishers;
+global using BookstoreApp.Application.DTOs.Authors;
+global using BookstoreApp.Application.DTOs.AuthorBooks;
 global using AutoMapper;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookstoreApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250312224829_add-tables")]
-    partial class addtables
+    [Migration("20250314232713_JoinedTable")]
+    partial class JoinedTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,19 +25,19 @@ namespace BookstoreApp.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AuthorDbBookDb", b =>
+            modelBuilder.Entity("BookstoreApp.Core.Entities.AuthorBookDb", b =>
                 {
-                    b.Property<int>("AuthorsId")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BooksId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.HasKey("AuthorsId", "BooksId");
+                    b.HasKey("AuthorId", "BookId");
 
-                    b.HasIndex("BooksId");
+                    b.HasIndex("BookId");
 
-                    b.ToTable("BookDbAuthorDb", (string)null);
+                    b.ToTable("AuthorsBooks");
                 });
 
             modelBuilder.Entity("BookstoreApp.Core.Entities.AuthorDb", b =>
@@ -54,7 +54,7 @@ namespace BookstoreApp.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("BookstoreApp.Core.Entities.BookDb", b =>
@@ -64,10 +64,6 @@ namespace BookstoreApp.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -398,19 +394,23 @@ namespace BookstoreApp.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("AuthorDbBookDb", b =>
+            modelBuilder.Entity("BookstoreApp.Core.Entities.AuthorBookDb", b =>
                 {
-                    b.HasOne("BookstoreApp.Core.Entities.AuthorDb", null)
-                        .WithMany()
-                        .HasForeignKey("AuthorsId")
+                    b.HasOne("BookstoreApp.Core.Entities.AuthorDb", "Author")
+                        .WithMany("AuthorBooks")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookstoreApp.Core.Entities.BookDb", null)
-                        .WithMany()
-                        .HasForeignKey("BooksId")
+                    b.HasOne("BookstoreApp.Core.Entities.BookDb", "Book")
+                        .WithMany("AuthorBooks")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("BookstoreApp.Core.Entities.BookDb", b =>
@@ -505,6 +505,16 @@ namespace BookstoreApp.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BookstoreApp.Core.Entities.AuthorDb", b =>
+                {
+                    b.Navigation("AuthorBooks");
+                });
+
+            modelBuilder.Entity("BookstoreApp.Core.Entities.BookDb", b =>
+                {
+                    b.Navigation("AuthorBooks");
                 });
 
             modelBuilder.Entity("BookstoreApp.Core.Entities.CategoryDb", b =>

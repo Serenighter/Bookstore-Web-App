@@ -4,7 +4,7 @@ public class AuthorDb
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public IEnumerable<BookDb> Books { get; set; }
+    public List<AuthorBookDb> AuthorBooks { get; set; } = new List<AuthorBookDb>();
 
     public AuthorDb() { }
 

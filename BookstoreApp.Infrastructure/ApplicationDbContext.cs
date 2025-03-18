@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using BookstoreApp.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BookstoreApp.Infrastructure;
@@ -13,6 +12,7 @@ public class ApplicationDbContext : IdentityDbContext<UserDb>
     public DbSet<EditionDb> Editions { get; set; }
     public DbSet<LanguageDb> Languages { get; set; }
     public DbSet<AuthorDb> Authors { get; set; }
+    public DbSet<AuthorBookDb> AuthorsBooks { get; set; }
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
     }
@@ -23,11 +23,17 @@ public class ApplicationDbContext : IdentityDbContext<UserDb>
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         //modelBuilder.ApplyConfiguration(new BookDbConfiguration());
 
-        
-        modelBuilder.Entity<BookDb>()
-            .HasMany(x => x.Authors)
-            .WithMany(x => x.Books)
-            .UsingEntity(x => x.ToTable("BookDbAuthorDb"));
+        modelBuilder.Entity<AuthorBookDb>(x => x.HasKey(y => new { y.AuthorId, y.BookId }));
+
+        modelBuilder.Entity<AuthorBookDb>()
+            .HasOne(a => a.Author)
+            .WithMany(x => x.AuthorBooks)
+            .HasForeignKey(a => a.AuthorId);
+        modelBuilder.Entity<AuthorBookDb>()
+            .HasOne(a => a.Book)
+            .WithMany(x => x.AuthorBooks)
+            .HasForeignKey(a => a.BookId);
+
         /*
         modelBuilder.Entity<BookDb>()
             .HasOne(x => x.Category)

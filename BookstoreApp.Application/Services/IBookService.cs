@@ -1,5 +1,4 @@
-﻿using BookstoreApp.Application.DTOs.Books;
-
+﻿
 namespace BookstoreApp.Application.Services;
 
 public interface IBookService

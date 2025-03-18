@@ -5,11 +5,15 @@
 namespace BookstoreApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class addtables : Migration
+    public partial class JoinedTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Author",
+                table: "Books");
+
             migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
@@ -24,43 +28,50 @@ namespace BookstoreApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookDbAuthorDb",
+                name: "AuthorsBooks",
                 columns: table => new
                 {
-                    AuthorsId = table.Column<int>(type: "int", nullable: false),
-                    BooksId = table.Column<int>(type: "int", nullable: false)
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookDbAuthorDb", x => new { x.AuthorsId, x.BooksId });
+                    table.PrimaryKey("PK_AuthorsBooks", x => new { x.AuthorId, x.BookId });
                     table.ForeignKey(
-                        name: "FK_BookDbAuthorDb_Authors_AuthorsId",
-                        column: x => x.AuthorsId,
+                        name: "FK_AuthorsBooks_Authors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookDbAuthorDb_Books_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_AuthorsBooks_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookDbAuthorDb_BooksId",
-                table: "BookDbAuthorDb",
-                column: "BooksId");
+                name: "IX_AuthorsBooks_BookId",
+                table: "AuthorsBooks",
+                column: "BookId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BookDbAuthorDb");
+                name: "AuthorsBooks");
 
             migrationBuilder.DropTable(
                 name: "Authors");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Author",
+                table: "Books",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
         }
     }
 }

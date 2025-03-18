@@ -14,7 +14,9 @@ public static class ApplicationExtensions
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<ILanguageService, LanguageService>();
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IAuthorService, AuthorService>();
         services.AddScoped<IJsonWebTokenService, JsonWebTokenService>();
+        services.AddScoped<IAuthorBookService, AuthorBookService>();
         
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
+﻿
 namespace BookstoreApp.Core.Entities;
 
 public class CategoryDb

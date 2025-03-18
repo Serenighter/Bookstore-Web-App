@@ -7,7 +7,7 @@ public class CategoryDbConfiguration : IEntityTypeConfiguration<CategoryDb>
 {
     public void Configure(EntityTypeBuilder<CategoryDb> builder)
     {
-        builder.ToTable("Categories"); //"Category"?
+        builder.ToTable("Categories");
 
         builder.HasMany(x => x.Books)
             .WithOne(x => x.Category)
