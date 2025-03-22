@@ -19,4 +19,10 @@ public class LanguageRepository : ILanguageRepository
         await _context.Languages.AddAsync(language);
         await _context.SaveChangesAsync();
     }
+    public async Task DeleteAsync(int id)
+    {
+        var language = await _context.Languages.FindAsync(id);
+        _context.Languages.Remove(language);
+        await _context.SaveChangesAsync();
+    }
 }

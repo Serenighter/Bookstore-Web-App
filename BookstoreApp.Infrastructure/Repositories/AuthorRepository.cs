@@ -20,4 +20,10 @@ public class AuthorRepository : IAuthorRepository
         await _context.Authors.AddAsync(author);
         await _context.SaveChangesAsync();
     }
+    public async Task DeleteAsync(int id)
+    {
+        var author = await _context.Authors.FindAsync(id);
+        _context.Authors.Remove(author);
+        await _context.SaveChangesAsync();
+    }
 }

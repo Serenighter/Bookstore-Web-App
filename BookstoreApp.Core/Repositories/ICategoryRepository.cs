@@ -4,4 +4,5 @@ public interface ICategoryRepository
 {
     public Task AddAsync(CategoryDb categoryDb);
     public Task<IEnumerable<CategoryDb>> GetAllAsync();
+    public Task DeleteAsync(int id);
 }

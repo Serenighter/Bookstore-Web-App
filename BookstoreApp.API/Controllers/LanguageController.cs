@@ -13,6 +13,7 @@ public class LanguageController : ControllerBase
     {
         _languageService = languageService;
     }
+
     [HttpGet("Languages")]
     public async Task<IActionResult> GetLanguages()
         => Ok(await _languageService.GetAllAsync());
@@ -21,6 +22,13 @@ public class LanguageController : ControllerBase
     public async Task<IActionResult> AddLanguage(AddLanguageDto model)
     {
         await _languageService.AddAsync(model);
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteLanguage(int id)
+    {
+        await _languageService.DeleteAsync(id);
         return Ok();
     }
 }

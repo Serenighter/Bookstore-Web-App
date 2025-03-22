@@ -4,4 +4,5 @@ public interface IClientsRepository
 {
     public Task AddAsync(ClientDb clientDb);
     public Task<IEnumerable<ClientDb>> GetAllAsync();
+    public Task DeleteAsync(int id);
 }

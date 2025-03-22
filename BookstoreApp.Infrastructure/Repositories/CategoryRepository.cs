@@ -19,4 +19,10 @@ public class CategoryRepository : ICategoryRepository
         await _context.Categories.AddAsync(categoryDb);
         await _context.SaveChangesAsync();
     }
+    public async Task DeleteAsync(int id)
+    {
+        var categoryDb = await _context.Categories.FindAsync(id);
+        _context.Categories.Remove(categoryDb);
+        await _context.SaveChangesAsync();
+    }
 }

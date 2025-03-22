@@ -32,4 +32,10 @@ public class AuthorBookRepository : IAuthorBookRepository
         await _context.AuthorsBooks.AddAsync(authorBookDb);
         await _context.SaveChangesAsync();
     }
+    public async Task DeleteAsync(int id)
+    {
+        var authorBookDb = await _context.AuthorsBooks.FindAsync(id);
+        _context.AuthorsBooks.Remove(authorBookDb);
+        await _context.SaveChangesAsync();
+    }
 }

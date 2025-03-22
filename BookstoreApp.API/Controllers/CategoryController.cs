@@ -24,9 +24,10 @@ public class CategoryController : ControllerBase
         return Ok();
     }
 
-    /*[HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteCategory(int id)
     {
-
-    }*/
+        await _categoryService.DeleteAsync(id);
+        return Ok();
+    }
 }

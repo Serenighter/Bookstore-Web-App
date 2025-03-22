@@ -13,6 +13,7 @@ public class PublisherController : ControllerBase
     {
         _publisherService = publisherService;
     }
+
     [HttpGet("Publishers")]
     public async Task<IActionResult> GetPublishers()
         => Ok(await _publisherService.GetAllAsync());
@@ -21,6 +22,13 @@ public class PublisherController : ControllerBase
     public async Task<IActionResult> AddPublisher(AddPublisherDto model)
     {
         await _publisherService.AddAsync(model);
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePublisher(int id)
+    {
+        await _publisherService.DeleteAsync(id);
         return Ok();
     }
 }

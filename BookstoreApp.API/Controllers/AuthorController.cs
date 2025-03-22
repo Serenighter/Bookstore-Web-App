@@ -14,6 +14,7 @@ public class AuthorController : ControllerBase
         _authorRepository = authorRepository;
         _authorService = authorService;
     }
+
     [HttpGet("Authors")]
     public async Task<IActionResult> GetAuthors()
         => Ok(await _authorService.GetAllAsync());
@@ -22,6 +23,13 @@ public class AuthorController : ControllerBase
     public async Task<IActionResult> AddAuthor(AddAuthorDto model)
     {
         await _authorService.AddAsync(model);
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAuthor(int id)
+    {
+        await _authorService.DeleteAsync(id);
         return Ok();
     }
 }

@@ -33,4 +33,8 @@ public class AuthorBookService : IAuthorBookService
         var authorBookDtos = _mapper.Map<IEnumerable<AuthorBookDto>>(authorBooks);
         return authorBookDtos;
     }
+    public async Task DeleteAsync(int id)
+    {
+        await _authorBookRepository.DeleteAsync(id);
+    }
 }

@@ -19,4 +19,10 @@ public class PublisherRepository : IPublisherRepository
         await _context.Publishers.AddAsync(publisher);
         await _context.SaveChangesAsync();
     }
+    public async Task DeleteAsync(int id)
+    {
+        var publisher = await _context.Publishers.FindAsync(id);
+        _context.Publishers.Remove(publisher);
+        await _context.SaveChangesAsync();
+    }
 }

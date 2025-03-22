@@ -43,4 +43,8 @@ public class CategoryService : ICategoryService
 
         return categoryDtos;
     }
+    public async Task DeleteAsync(int id)
+    {
+        await _categoryRepository.DeleteAsync(id);
+    }
 }

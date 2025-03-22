@@ -40,4 +40,8 @@ public class LanguageService : ILanguageService
         }*/
         return languageDtos;
     }
+    public async Task DeleteAsync(int id)
+    {
+        await _languageRepository.DeleteAsync(id);
+    }
 }

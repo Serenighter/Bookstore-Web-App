@@ -25,4 +25,11 @@ public class BookRepository : IBookRepository
         await _context.Books.AddAsync(bookDb);
         await _context.SaveChangesAsync();
     }
+
+    public async Task DeleteAsync(int id)
+    {
+        var bookDb = await _context.Books.FindAsync(id);
+        _context.Books.Remove(bookDb);
+        await _context.SaveChangesAsync();
+    }
 }

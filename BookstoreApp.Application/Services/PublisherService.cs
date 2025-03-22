@@ -41,4 +41,8 @@ public class PublisherService : IPublisherService
         }*/
         return publisherDtos;
     }
+    public async Task DeleteAsync(int id)
+    {
+        await _publisherRepository.DeleteAsync(id);
+    }
 }

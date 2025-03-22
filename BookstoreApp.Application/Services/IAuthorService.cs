@@ -5,4 +5,5 @@ public interface IAuthorService
 {
     public Task AddAsync(AddAuthorDto model);
     public Task<IEnumerable<AuthorDto>> GetAllAsync();
+    public Task DeleteAsync(int id);
 }

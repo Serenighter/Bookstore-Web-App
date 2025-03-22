@@ -6,4 +6,5 @@ public interface IPublisherService
 {
     public Task AddAsync(AddPublisherDto model);
     public Task<IEnumerable<PublisherDto>> GetAllAsync();
+    public Task DeleteAsync(int id);
 }

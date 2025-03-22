@@ -43,4 +43,8 @@ public class ClientService : IClientService
         }*/
         return clientDtos;
     }
+    public async Task DeleteAsync(int id)
+    {
+        await _clientRepository.DeleteAsync(id);
+    }
 }

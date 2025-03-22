@@ -29,5 +29,8 @@ public class AuthorService : IAuthorService
 
         return authorDtos;
     }
-
+    public async Task DeleteAsync(int id)
+    {
+        await _authorRepository.DeleteAsync(id);
+    }
 }

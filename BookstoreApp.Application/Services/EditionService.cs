@@ -41,4 +41,8 @@ public class EditionService : IEditionService
         }*/
         return editionDtos;
     }
+    public async Task DeleteAsync(int id)
+    {
+        await _editionRepository.DeleteAsync(id);
+    }
 }

@@ -4,4 +4,5 @@ public interface IAuthorRepository
 {
     public Task AddAsync(AuthorDb authorDb);
     public Task<IEnumerable<AuthorDb>> GetAllAsync();
+    public Task DeleteAsync(int id);
 }

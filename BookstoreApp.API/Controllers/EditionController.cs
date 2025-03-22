@@ -13,6 +13,7 @@ public class EditionController : ControllerBase
     {
         _editionService = editionService;
     }
+
     [HttpGet("Editions")]
     public async Task<IActionResult> GetEditions()
         => Ok(await _editionService.GetAllAsync());
@@ -21,6 +22,13 @@ public class EditionController : ControllerBase
     public async Task<IActionResult> AddEdition(AddEditionDto model)
     {
         await _editionService.AddAsync(model);
+        return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteEdition(int id)
+    {
+        await _editionService.DeleteAsync(id);
         return Ok();
     }
 }

@@ -5,4 +5,5 @@ public interface IClientService
 {
     public Task AddAsync(AddClientDto model);
     public Task<IEnumerable<ClientDto>> GetAllAsync();
+    public Task DeleteAsync(int id);
 }

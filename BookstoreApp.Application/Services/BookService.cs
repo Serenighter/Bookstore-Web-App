@@ -60,4 +60,8 @@ public class BookService : IBookService
 
         return bookDtos;
     }
+    public async Task DeleteAsync(int id)
+    {
+        await _bookRepository.DeleteAsync(id);
+    }
 }

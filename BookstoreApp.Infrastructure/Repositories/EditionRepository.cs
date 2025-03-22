@@ -19,7 +19,12 @@ public class EditionRepository : IEditionRepository
         await _context.Editions.AddAsync(editionDb);
         await _context.SaveChangesAsync();
     }
-
+    public async Task DeleteAsync(int id)
+    {
+        var editionDb = await _context.Editions.FindAsync(id);
+        _context.Editions.Remove(editionDb);
+        await _context.SaveChangesAsync();
+    }
 
 
 

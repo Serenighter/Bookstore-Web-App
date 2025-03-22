@@ -19,4 +19,10 @@ public class ClientsRepository : IClientsRepository
         await _context.Clients.AddAsync(clientDb);
         await _context.SaveChangesAsync();
     }
+    public async Task DeleteAsync(int id)
+    {
+        var clientDb = await _context.Clients.FindAsync(id);
+        _context.Clients.Remove(clientDb);
+        await _context.SaveChangesAsync();
+    }
 }

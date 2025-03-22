@@ -27,4 +27,12 @@ public class BookController : ControllerBase
         await _bookService.AddAsync(model);
         return Ok();
     }
+
+    [AllowAnonymous]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBook(int id)
+    {
+        await _bookService.DeleteAsync(id);
+        return Ok();
+    }
 }

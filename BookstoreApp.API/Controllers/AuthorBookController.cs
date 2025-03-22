@@ -23,4 +23,11 @@ public class AuthorBookController : ControllerBase
         await _authorBookService.AddAsync(model);
         return Ok();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAuthorBook(int id)
+    {
+        await _authorBookService.DeleteAsync(id);
+        return Ok();
+    }
 }
