@@ -15,6 +15,15 @@ public class AuthorBookRepository : IAuthorBookRepository
         return await _context.AuthorsBooks
             .Include(ab => ab.Author)
             .Include(ab => ab.Book)
+                .ThenInclude(b => b.Category)
+            .Include(ab => ab.Book)
+                .ThenInclude(b => b.Publisher)
+            .Include(ab => ab.Book)
+                .ThenInclude(b => b.Edition)
+            .Include(ab => ab.Book)
+                .ThenInclude(b => b.Language)
+            .Include(ab => ab.Book)
+                .ThenInclude(b => b.Client)
             .ToListAsync();
     }
 

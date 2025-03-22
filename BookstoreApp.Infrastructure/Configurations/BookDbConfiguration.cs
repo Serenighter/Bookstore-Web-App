@@ -1,4 +1,5 @@
 ﻿
+using BookstoreApp.Application.Services;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookstoreApp.Infrastructure.Configurations;
@@ -15,5 +16,8 @@ public class BookDbConfiguration : IEntityTypeConfiguration<BookDb>
         builder.HasMany(x => x.AuthorBooks)
             .WithOne(x => x.Book)
             .HasForeignKey(x => x.BookId);
+        /*builder.HasMany(x => x.Authors)
+            .WithOne(x => x.Book)
+            .HasForeignKey(x => x.BookId);*/
     }
 }
