@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using BookstoreApp.Application;
 using BookstoreApp.Application.AutoMapper;
@@ -86,11 +87,42 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidAudience = builder.Configuration["JWT:audience"],
         ValidIssuer = builder.Configuration["JWT:issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+        RoleClaimType = ClaimTypes.Role
     };
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        var userManager = services.GetRequiredService<UserManager<UserDb>>();
+
+        if (!await roleManager.RoleExistsAsync("Admin"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("Admin"));
+        }
+
+        var adminEmail = "admin@example.com";
+        var adminUser = await userManager.FindByEmailAsync(adminEmail);
+        if (adminUser == null)
+        {
+            adminUser = new UserDb { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
+
+            await userManager.CreateAsync(adminUser, "MaximumSecurity123!");
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+    catch (Exception exc)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(exc, "Seeding failed");
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {

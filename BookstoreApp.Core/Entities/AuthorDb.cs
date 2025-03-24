@@ -6,7 +6,7 @@ public class AuthorDb
     public string Name { get; set; }
     //public int BookId { get; set; }
     public List<AuthorBookDb> AuthorBooks { get; set; } = new List<AuthorBookDb>();
-    public BookDb Book { get; set; }
+    //public BookDb Book { get; set; }
 
     public AuthorDb() { }
 

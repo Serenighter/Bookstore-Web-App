@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Data;
 
 namespace BookstoreApp.Application.Services.JWT;
 
@@ -16,7 +17,7 @@ public class JsonWebTokenService : IJsonWebTokenService
         _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]));
     }
 
-    public string CreateToken(UserDb userDb)
+    public string CreateToken(UserDb userDb, IList<string> roles)
     {
         var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -25,6 +26,11 @@ public class JsonWebTokenService : IJsonWebTokenService
             new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.Sub, userDb.Id)
         };
+
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var expirationDate = DateTime.Now.AddHours(1);
 

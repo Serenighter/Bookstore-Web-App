@@ -1,7 +1,9 @@
 ﻿using BookstoreApp.Application.DTOs.AuthorBooks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookstoreApp.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class AuthorBookController : ControllerBase
@@ -13,10 +15,12 @@ public class AuthorBookController : ControllerBase
         _authorBookService = authorBookService;
     }
 
+    [AllowAnonymous]
     [HttpGet("AuthorBook")]
     public async Task<IActionResult> GetAuthorBook()
         => Ok(await _authorBookService.GetAllAsync());
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> AddAuthorBook(AddAuthorBookDto model)
     {
@@ -24,6 +28,7 @@ public class AuthorBookController : ControllerBase
         return Ok();
     }
 
+    [AllowAnonymous]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAuthorBook(int id)
     {

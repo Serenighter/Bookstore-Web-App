@@ -2,5 +2,5 @@
 
 public interface IJsonWebTokenService
 {
-    public string CreateToken(UserDb userDb);
+    public string CreateToken(UserDb userDb, IList<string> roles);
 }

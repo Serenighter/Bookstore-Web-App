@@ -56,7 +56,8 @@ public class AccountService : IAccountService
             throw new Exception("Błędny login lub hasło");
         }
 
-        var token = _jsonWebTokenService.CreateToken(userDb);
+        var roles = await _userManager.GetRolesAsync(userDb);
+        var token = _jsonWebTokenService.CreateToken(userDb, roles);
         return token;
         
     }
